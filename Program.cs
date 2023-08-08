@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
+using System;
 internal class Program {
    private static void Main (string[] args) {
       int a = 1, z = 100, guess;
@@ -11,20 +10,20 @@ internal class Program {
          char key;
          Console.Write ($"\nIs {guess} your answer?(Y/N): ");
          key = Console.ReadKey ().KeyChar;
-         if (key == 'Y') {
-            Console.Write ($"\n{guess} is your guessed random number and I found it in {attempt} attempt.");
+         string att = (attempt > 1) ? "attempts" : "attempt";
+         if (key == 'Y' || key == 'y') {
+            Console.Write ($"\n{guess} is your guessed random number and I found it in {attempt} {att}.");
             break;
-         } 
-         else if (key == 'N') {
-            attempt++;  
-            Console.Write ($"\nIs that lesser than {guess}? y/n: ");
+         } else if (key == 'N' || key == 'n') {
+            attempt++;
+            Console.Write ($"\nIs that lesser than {guess}? Y/N: ");
             key = Console.ReadKey ().KeyChar;
-            if (key == 'y')
+            if (key == 'Y' || key == 'y')
                z = guess - 1;
-            else if (key == 'n')
+            else if (key == 'N' || key == 'n')
                a = guess + 1;
             else
-               Console.WriteLine ("Invalid info. Enter 'y' or 'n'.");        
+               Console.WriteLine ("Invalid info. Enter 'y' or 'n'.");
          } else
             Console.WriteLine ("\nInvalid character. Press 'Y' or 'N'.");
       }
