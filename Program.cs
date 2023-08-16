@@ -1,4 +1,4 @@
-﻿namespace Training {
+namespace Training {
    internal class Program {
       static void Main (string[] args) {
          Console.Write ("Enter num1: ");
