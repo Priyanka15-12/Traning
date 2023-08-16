@@ -4,7 +4,7 @@ namespace Training {
       static void Main (string[] args) {
          Console.Write ("Input: ");
          string decimal_number = Console.ReadLine ();
-         if (int.TryParse (decimal_number, out int dec)) {
+         if (int.TryParse (decimal_number, out int dec) && dec!=0) {
             string hexa = dec.ToString ("X");
             Console.WriteLine ($"HEX: {hexa}");
             string bin = "";
@@ -14,7 +14,7 @@ namespace Training {
                dec/= 2;
             }
             Console.WriteLine ($"Binary: {bin}");
-         } else Console.WriteLine ("Enter numerical value");
+         } else Console.WriteLine ("Enter a valid numerical value");
       }
    }
 }
