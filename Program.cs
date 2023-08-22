@@ -9,11 +9,8 @@
             }
             int a = 1;
             for (int k = 0; k <= i; k++) {
-               if (k == 0 ) {
-                  a = 1;
-               } else
-                  a = a * (i - k + 1) / k;
-              Console.Write ($"{a,-3} ");
+               a = (k == 0 ? 1 : a * (i - k + 1) / k);
+               Console.Write ($"{a,-3} ");
             }
             Console.WriteLine ();
          }
