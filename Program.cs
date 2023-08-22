@@ -3,12 +3,9 @@
       static void Main (string[] args) {
          //Multiplication upto n
          Console.Write ("Enter num: ");
-         int n = int.Parse (Console.ReadLine ());
-         int i = 0;
-         while (n > i) {
-            i++;
-            int b = 3 * i;
-            Console.WriteLine ($"3 * {i,2} = {b}");
+         int i=0, n = int.Parse (Console.ReadLine ());
+         while (n > i++) {
+            Console.WriteLine ($"3 * {i,2} = {3*i}");
          }
       }
    }
