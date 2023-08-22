@@ -3,18 +3,13 @@
       static void Main (string[] args) {
          Console.Write ("Enter number: ");
          int a = int.Parse (Console.ReadLine ());
-         int num = a;
-         int reversed_num = 0;
+         int num = a, reversed_num = 0;
          while (a > 0) {
-            int rem = a % 10;
-            reversed_num = reversed_num * 10 + rem;
-            a = a / 10;
+            reversed_num = reversed_num * 10 + a % 10;
+            a /= 10;
          }
-         Console.WriteLine ($"Reversed number {reversed_num}.");
-         if (num == reversed_num) {
-            Console.WriteLine ($"{num} is palindrome number.");
-         } else
-            Console.WriteLine ($"{num} is not a palindrome number.");
+         string res=(num == reversed_num ? $"{num} is a palindrome number." : $"{num} is not a palindrome number.");
+         Console.WriteLine ($"Reversed number {reversed_num}.{res}");
       }
    }
 }
