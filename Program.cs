@@ -1,17 +1,17 @@
-﻿namespace Training {
+﻿using System;
+namespace Training {
    internal class Program {
       static void Main (string[] args) {
          Console.Write ("Enter pharse or word: ");
-         string input_word = Console.ReadLine ();
-         string word = input_word.Replace (" ", string.Empty);
-         string rev = "";
-         int w = word.Length - 1;
-         for (int i = 0; i <= w; w--) {
-            rev = rev + word[w];
+         string inputPhrase = Console.ReadLine ();
+         string words = inputPhrase.Replace (" ", string.Empty);
+         int left = 0;
+         int right = words.Length - 1;
+         while (left<= right) {
+            if (char.ToUpper (words[left]) != char.ToUpper (words[right])) break;
+            left++; right--;
          }
-         if (word.ToLower () == rev.ToLower ()) {
-            Console.WriteLine ("palindrome");
-         } else Console.WriteLine ("not palindrome");
+         Console.WriteLine (char.ToUpper (words[left]) == char.ToUpper (words[right]) ?"Palindrome" : "Not a palindrome.");
       }
    }
 }
