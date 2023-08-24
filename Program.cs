@@ -5,9 +5,10 @@ namespace Training {
       static void Main (string[] args) {
          System.Console.OutputEncoding = System.Text.Encoding.UTF8;
          Console.WriteLine ("\u250C" + string.Concat (Enumerable.Repeat ("\u2500\u2500\u2500\u252C", 7)) + "\u2500\u2500\u2500\u2510");
-         Console.WriteLine ("\u2502 \u265C \u2502 \u265E \u2502 \u265D \u2502 \u265B \u2502 \u265A \u2502 \u265D \u2502 \u265E \u2502 \u265C \u2502");
+         Console.WriteLine ("\u2502 \u265C \u2502 \u265E \u2502 \u265D \u2502 \u265B \u2502 \u265A \u2502 \u265D \u2502 \u265E \u2502 \u265C \u2502");   
          Console.WriteLine ("\u251C" + string.Concat (Enumerable.Repeat ("\u2500\u2500\u2500\u253C", 7)) + "\u2500\u2500\u2500\u2524");
-         Console.WriteLine (string.Concat (Enumerable.Repeat ("\u2502 \u265F", 8)) + "\u2502");
+         //The unicode \u265F takes up extra space. Now it should be correct for you.
+         Console.WriteLine (string.Concat (Enumerable.Repeat ("\u2502 \u265F ", 8)) + "\u2502");   
          for (int j = 0; j < 4; j++) {
             Console.WriteLine ("\u251C" + string.Concat (Enumerable.Repeat ("\u2500\u2500\u2500\u253C", 7)) + "\u2500\u2500\u2500\u2524");
             Console.WriteLine (string.Concat (Enumerable.Repeat ("\u2502   ", 8)) + "\u2502");
