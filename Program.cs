@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Runtime.Intrinsics.Arm;
+using System;
 
 namespace Training {
    internal class Program {
@@ -23,6 +23,8 @@ namespace Training {
             }
          } else Console.WriteLine ("Enter a positive numerical value");
       }
-      static char ConvertHexa (int remainder) { return (remainder < 10 ? (char)('0' + remainder) : (char)('A' + remainder - 10)); }      
+      static char ConvertHexa (int remainder) {
+         return remainder < 10 ? (char)('0' + remainder) : (char)('A' + remainder - 10);
+      }
    }
 }
