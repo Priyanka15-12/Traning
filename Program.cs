@@ -5,10 +5,10 @@
          int a = int.Parse (Console.ReadLine ());
          Console.Write ("Enter a number for b= ");
          int b = int.Parse (Console.ReadLine ());
-         swap (a, b);
-         Console.Write($"After swapping,\na = {b}\nb = {a}");
+         swap (ref a, ref b);
+         Console.Write($"After swapping,\na = {a}\nb = {b}");
       }
-      static void swap (int x, int y) {
+      static void swap (ref int x, ref int y) {
          (x, y) = (y, x);
       }
    }
