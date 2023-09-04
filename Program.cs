@@ -16,7 +16,7 @@ namespace Training {
          Console.WriteLine ("\u251C" + string.Concat (Enumerable.Repeat ("\u2500\u2500\u2500\u253C", 7)) + "\u2500\u2500\u2500\u2524");
          Console.WriteLine (string.Concat (Enumerable.Repeat ("\u2502 \u2659 ", 8)) + "\u2502");
          Console.WriteLine ("\u251C" + string.Concat (Enumerable.Repeat ("\u2500\u2500\u2500\u253C", 7)) + "\u2500\u2500\u2500\u2524");
-         Console.WriteLine ("\u2502 \u2656 \u2502 \u2658 \u2502 \u2657 \u2502 \u2654 \u2502 \u2655 \u2502 \u2657 \u2502 \u2658 \u2502 \u2656 \u2502");
+         Console.WriteLine ("\u2502 \u2656 \u2502 \u2658 \u2502 \u2657 \u2502 \u2655 \u2502 \u2654 \u2502 \u2657 \u2502 \u2658 \u2502 \u2656 \u2502");
          Console.WriteLine ("\u2514" + string.Concat (Enumerable.Repeat ("\u2500\u2500\u2500\u2534", 7)) + "\u2500\u2500\u2500\u2518");
       }
    }
