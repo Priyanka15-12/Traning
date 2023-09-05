@@ -2,7 +2,7 @@
    internal class Program {
       static void Main (string[] args) {
          Console.Write ("Enter a positive number: ");
-         if(int.TryParse (Console.ReadLine (),out int n) && n >= 0)
+         if (int.TryParse (Console.ReadLine (), out int n) && n >= 0)
             Console.Write ($"{n} is a {(Armstrong (n) == n ? "" : "In")}valid armstrong number.");
          else Console.WriteLine ("Invalid input. Enter a positive number.");
       }
