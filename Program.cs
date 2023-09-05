@@ -5,7 +5,7 @@
          int a = int.Parse (Console.ReadLine ());
          Console.Write ("Enter a number for b = ");
          int b = int.Parse (Console.ReadLine ());
-         Action<int, int> Swap = (x, y) => (a, b) = (b, a);
+         void Swap (int x, int y) => (a, b) = (b, a);
          Swap (a, b);
          Console.Write ($"After swapping,\na = {a}\nb = {b}");
       }
