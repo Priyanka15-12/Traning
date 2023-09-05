@@ -1,15 +1,16 @@
 ﻿namespace Training {
    internal class Program {
       static void Main (string[] args) {
-         Console.Write ("Enter a number: ");
-         int n = int.Parse (Console.ReadLine ());
-         Console.Write ($"Factorial of {n} is {factorial (n)}.");
+         Console.Write ("Enter a positive number: ");
+         if (int.TryParse (Console.ReadLine (), out int n))
+            Console.Write ($"Factorial of {n} is {Factorial (n)}.");
+         else Console.WriteLine ("Invalid character. Enter a positive integer.");
       }
-      static int factorial (int n) {
-         int fact = 1;
-         for (int i = 1; i < n; i++) {
+      static long Factorial (int n) {
+         //works upto 20
+         long fact = 1;
+         for (int i = 1; i <= n; i++)
             fact *= i;
-         }
          return fact;
       }
    }
