@@ -2,23 +2,26 @@
    internal class Program {
       static void Main (string[] args) {
          Console.Write ("Enter the value of n: ");
-         int n = int.Parse (Console.ReadLine ());
-         Console.WriteLine ($"The {n}th armstrong number is {armstrong (n)}");
+         int.TryParse (args[0], out int n);
+         if (Armstrong (n) != -1)
+            Console.WriteLine ($"The {n}th armstrong number is {Armstrong (n)}");
+         else Console.WriteLine ("Out of range. Enter n value from 1 to 25.");
       }
-      static int armstrong (int n) {
+      static int Armstrong (int n) {
          int count = 0;
-         for (int i = 1; i > 0; i++) {
-            int sum = 0, num = i;
+         for (int num = 1; ; num++) {
+            int sum = 0;
             int length = num.ToString ().Length;
             while (num > 0) {
                sum += ((int)Math.Pow (num % 10, length));
                num /= 10;
             }
-            if (i == sum) count++;
-            if (count == n) 
-               return sum;
+            if (num == sum) count++;
+            if (count == n)
+               if (count <= 25) return sum;
+               else break;
          }
-         return 0;
+         return -1;
       }
    }
 }
