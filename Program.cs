@@ -10,9 +10,9 @@ namespace Training {
 
       static bool Isogram (string iso) {
          HashSet<char> chars = new ();
-         iso = iso.ToLower ();
-         foreach (char c in iso)
-            if (chars.Contains (c) ? false : !chars.Add (c)) return false;
+         foreach (char c in iso.ToLower ())
+            if (chars.Contains (c)) return false;
+            else chars.Add (c);
          return true;
       }
    }
