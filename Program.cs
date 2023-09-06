@@ -7,6 +7,7 @@
             Console.WriteLine ($"The {n}th armstrong number is {Armstrong (n)}");
          else Console.WriteLine ("Out of range. Enter n value from 1 to 25.");
       }
+
       static int Armstrong (int n) {
          int count = 0;
          for (int num = 1; ; num++) {
