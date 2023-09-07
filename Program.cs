@@ -1,20 +1,21 @@
 ﻿namespace Training {
    internal class Program {
       static void Main (string[] args) {
-         int[] num = { 2, 4, 3, 5, 7, 10, 15 };
-         Array.ForEach (num, i => Console.Write ($"{i} "));
+         Random randomNum = new ();
+         int[] numArr = new int[6];
+         for (int i = 0; i < 6; ++i)
+            numArr[i] = randomNum.Next (1, 10);
+         Array.ForEach (numArr, i => Console.Write ($"{i} "));
          Console.Write ("\nEnter index a: ");
-         int a = int.Parse (Console.ReadLine ());
+         int.TryParse (Console.ReadLine (), out int a);
          Console.Write ("Enter index b: ");
-         int b = int.Parse (Console.ReadLine ());
-         if (a >= 0 && a <= num.Length && b >= 0 && b <= num.Length) {
-            indexswap (num, a, b);
+         int.TryParse (Console.ReadLine (), out int b);
+         void indexSwap (int[] arr, int a, int b) => (arr[a], arr[b]) = (arr[b], arr[a]);
+         if (a >= 0 && a <= 5 && b >= 0 && b <= 5) {
+            indexSwap (numArr, a, b);
             Console.WriteLine ("Swapped series of numbers");
-            Array.ForEach (num, i => Console.Write ($"{i} "));
-         } else Console.Write ("Provide indices within range.");
-      }
-      static void indexswap (int[] arr, int x, int y) {
-         (arr[x], arr[y]) = (arr[y], arr[x]);
+            Array.ForEach (numArr, i => Console.Write ($"{i} "));
+         } else Console.Write ($"Provide indices whithin the range. From 0 to 5.");
       }
    }
 }
