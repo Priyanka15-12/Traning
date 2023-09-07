@@ -19,11 +19,13 @@
       }
       static void Fraction (decimal d) {
          decimal frac = (d - (int)d);
-         string fracStr = frac.ToString ().Substring (2);
-         int[] fracArr = new int[fracStr.Length];
-         for (int i = 0; i < fracStr.Length; i++)
-            fracArr[i] = int.Parse (fracStr[i].ToString ());
-         Array.ForEach (fracArr, i => Console.Write ($"{i} "));
+         if (frac > 0) {
+            string fracStr = frac.ToString ().Substring (2);
+            int[] fracArr = new int[fracStr.Length];
+            for (int i = 0; i < fracStr.Length; i++)
+               fracArr[i] = int.Parse (fracStr[i].ToString ());
+            Array.ForEach (fracArr, i => Console.Write ($"{i} "));
+         } else Console.WriteLine (0);
       }
    }
 }
