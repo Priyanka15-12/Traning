@@ -2,17 +2,28 @@
    internal class Program {
       static void Main (string[] args) {
          Console.Write ("Enter decimal number: ");
-         decimal dec = decimal.Parse (Console.ReadLine ());
-         Console.WriteLine (DeciDigit (dec)); 
+         decimal.TryParse (Console.ReadLine (), out decimal dec);
+         Console.Write ("Integral Part: ");
+         DeciDigit (dec);
+         Console.Write ("\nFractional Part: ");
+         Fraction (dec);
       }
-      static string DeciDigit (decimal d) {
+      static void DeciDigit (decimal d) {
          int whole = (int)d;
-         decimal frac = (d - whole);
-         int len = frac.ToString ().Length;
-         int power = (int)Math.Pow (10, (len - 2));
-         int zeroDigit = ((int)(frac * power)).ToString ().Length;
-         var res = ((len - 2) > zeroDigit) ? string.Concat (Enumerable.Repeat ("0", ((len - 2) - zeroDigit))) : "";
-         return ($"Integral part: {whole}\nFactorial part: {res}{(int)(frac * power)}");
+         int[] wholeArr = new int[whole.ToString ().Length];
+         for (int i = whole.ToString ().Length - 1; i >= 0; i--) {
+            wholeArr[i] = whole % 10;
+            whole /= 10;
+         }
+         Array.ForEach (wholeArr, i => Console.Write ($"{i} "));
+      }
+      static void Fraction (decimal d) {
+         decimal frac = (d - (int)d);
+         string fracStr = frac.ToString ().Substring (2);
+         int[] fracArr = new int[fracStr.Length];
+         for (int i = 0; i < fracStr.Length; i++)
+            fracArr[i] = int.Parse (fracStr[i].ToString ());
+         Array.ForEach (fracArr, i => Console.Write ($"{i} "));
       }
    }
 }
