@@ -1,40 +1,34 @@
-﻿namespace Training {
+﻿using System.Text;
+
+namespace Training {
    internal class Program {
       static void Main (string[] args) {
          Console.Write ("Enter Password: ");
          string Password = Console.ReadLine ();
-         if (check (Password) == "true") Console.WriteLine ("Strong password.");
-         else Console.WriteLine ("Not a strong password. \n" + check (Password)) ;
+         (bool isStrong, string errorMsg) = checkPassword (Password);
+         if (isStrong) Console.WriteLine ("Strong password.");
+         else Console.WriteLine ("Password is not strong.\n" + errorMsg);
       }
-      static string check (string pass) {
-         string lower = "", upper = "", digit = "", splchar = "", notstrong = "";
+      static (bool isStrong, string errorMsg) checkPassword (string pass) {
+         StringBuilder err = new ();
+         bool lower = false, upper = false, digit = false, splChar = false;
          foreach (char c in pass) {
             if (char.IsLower (c))
-               lower = "true";
-         }
-         foreach (char c in pass) {
+               lower = true;
             if (char.IsUpper (c))
-               upper = "true";
-         }
-         foreach (char c in pass) {
+               upper = true;
             if (char.IsDigit (c))
-               digit = "true";
-         }
-         foreach (char c in pass) {
-            string spl = " !@#$%^&*()-+";
+               digit = true;
+            string spl = "!@#$%^&*()-+";
             if (spl.Contains (c))
-               splchar = "true";
+               splChar = true;
          }
-         if (pass.Length >= 6 && lower == "true" && upper == "true" && splchar == "true" && digit == "true")
-            return "true";
-         else {
-            if (upper != "true") notstrong = "Password must have atleast one upper character\n";
-            if (lower != "true") notstrong += "Password must have atleast one lower character\n";
-            if (digit != "true") notstrong += "Password must have atleast one digit \n";
-            if (splchar != "true") notstrong += "Password must have atleast one special character.\n";
-            if (pass.Length < 6) notstrong += "Password must have atleast six character.\n";
-            return notstrong;
-         }
+         if (pass.Length < 6) err.Append ("Password must have atleast six characters.\n");
+         if (!upper) err.Append ("Password must have atleast one uppercase character.\n");
+         if (!lower) err.Append ("Password must have atleast one lowercase character.\n");
+         if (!digit) err.Append ("Password must have atleast one digit.\n");
+         if (!splChar) err.Append ("Password must have atleast one special character. The special characters are:!@#$%^&*()-+");
+         return (lower && upper && digit && splChar && pass.Length >= 6, err.ToString ());
       }
-   } 
+   }
 }
