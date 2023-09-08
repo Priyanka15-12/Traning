@@ -1,12 +1,11 @@
 ﻿using System;
-using System;
 
 namespace Training {
    internal class Program {
       static void Main (string[] args) {
          //Convert a positive decimal number into binary and hexadecimal.
          Console.Write ("Enter a positive number: ");
-         if ((int.TryParse (Console.ReadLine (), out int dec)) && dec>=0) {
+         if ((int.TryParse (Console.ReadLine (), out int dec)) && dec >= 0) {
             int num = dec; string hex = "", bin = "";
             if (dec == 0) Console.WriteLine ($"Hexadecimal: 0\nBinary: 0");
             else {
