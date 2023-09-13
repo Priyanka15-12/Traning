@@ -4,24 +4,23 @@ namespace Training {
    internal class Program {
       static void Main (string[] args) {
          string[] abecedarianArr = { "glory", "floor", "ant", "victory", "aegilops", "access" };
-         int index = 0;
-         foreach (string word in abecedarianArr) {
-            if (Abecedarian (word, index))
+         for (int index = 0; index < abecedarianArr.Length; index++) {
+            string word = abecedarianArr[index];
+            if (isAbecedarian (word))
                Console.WriteLine ($"Abecedarian word :{word}");
-            index++;
+            if (word.Length > maxLength) {
+               maxLength = word.Length;
+               maxIndex = index;
+            }
          }
          if (maxIndex != -1)
-            Console.WriteLine ($"'{abecedarianArr[maxIndex]}' is the longest abecedarian word of given array.");
+            Console.WriteLine ($"\"{abecedarianArr[maxIndex]}\" is the longest abecedarian word of given array.");
          else Console.WriteLine ("No abecedarian word here.");
       }
-      static bool Abecedarian (string word, int index) {
+      static bool isAbecedarian (string word) {
          for (int i = 1; i < word.Length; i++)
             if (word[i] < word[i - 1])
                return false;
-         if (word.Length > maxLength) {
-            maxLength = word.Length;
-            maxIndex = index;
-         }
          return true;
       }
       static int maxLength = 0;
