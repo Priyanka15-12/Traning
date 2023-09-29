@@ -1,29 +1,43 @@
-﻿using System;
-
+﻿// --------------------------------------------------------------------------------------------
+// Training ~ A training program for new joinees at Metamation, Batch - July 2023
+// Copyright (c) Metamation India.                                              
+// ------------------------------------------------------------------------
+// Program.cs
+// An abecedarian word is a word where all its letters are arranged in alphabetical order.
+// Given an array of words, create a function which returns the longest abecedarian word.
+// If no word in an array matches the criteria, return an empty string. 
+// --------------------------------------------------------------------------------------------
 namespace Training {
+   #region Program---------------------------------------------------------
+   /// <summary>Abecedarian word</summary>
    internal class Program {
+      #region Methods ---------------------------------------------
+      /// <summary>Displays the longest abecedarian word from given array and
+      /// shows no abecedarian word here, if doesn't matches the  criteria </summary>
+      /// <param name="args">arguments</param>
       static void Main (string[] args) {
-         string[] abecedarianArr = { "glory", "floor", "ant", "victory", "aegilops", "access" };
-         for (int index = 0; index < abecedarianArr.Length; index++) {
-            string word = abecedarianArr[index];
-            if (isAbecedarian (word))
+         string[] wordArr = { "glory", "floor", "ant", "victory", "aegilops", "access" };
+         int maxLength = 0, maxIndex = -1;
+         for (int index = 0; index < wordArr.Length; index++) {
+            string word = wordArr[index];
+            if (IsAbecedarian (word)) {
                Console.WriteLine ($"Abecedarian word :{word}");
-            if (word.Length > maxLength) {
-               maxLength = word.Length;
-               maxIndex = index;
+               if (word.Length > maxLength) (maxLength, maxIndex) = (word.Length, index);
             }
          }
-         if (maxIndex != -1)
-            Console.WriteLine ($"\"{abecedarianArr[maxIndex]}\" is the longest abecedarian word of given array.");
-         else Console.WriteLine ("No abecedarian word here.");
+         Console.WriteLine (maxIndex != -1 ? $"\"{wordArr[maxIndex]}\" is the longest abecedarian word of given array." : "No abecedarian word here.");
       }
-      static bool isAbecedarian (string word) {
+
+      /// <summary>Checks, if word is abecedarian or not</summary>
+      /// <param name="word">words of array</param>
+      /// <returns>It returns bool value true for abecedarian word</returns>
+      static bool IsAbecedarian (string word) {
+         bool isAbecedarian = true;
          for (int i = 1; i < word.Length; i++)
-            if (word[i] < word[i - 1])
-               return false;
-         return true;
+            if (word[i] < word[i - 1]) isAbecedarian = false;
+         return isAbecedarian;
       }
-      static int maxLength = 0;
-      static int maxIndex = -1;
+      #endregion
    }
+   #endregion
 }
