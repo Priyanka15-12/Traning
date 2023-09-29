@@ -27,7 +27,7 @@ namespace Training {
          Console.WriteLine (isStrong ? "Strong psssword" : $"Not a strong password \n{errorMsg}");
       }
 
-      /// <summary>checks if character is lowercase or not</summary>
+      /// <summary>Checks if character is lowercase or not</summary>
       /// <param name="c">char of password</param>
       /// <returns>Its returns bool value true, if c is lowercase</returns>
       static bool IsLower (char c) => (c >= 'a' && c <= 'z');
@@ -37,7 +37,7 @@ namespace Training {
       /// <returns>Its returns bool value true, if c is uppercase</returns>
       static bool IsUpper (char c) => (c >= 'A' && c <= 'Z');
 
-      /// <summary>Xhecks if the character is digit or not</summary>
+      /// <summary>Checks if the character is digit or not</summary>
       /// <param name="c">char of password</param>
       /// <returns>Its returns bool value true, if c is digit</returns>
       /// 
