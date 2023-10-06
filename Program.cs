@@ -17,21 +17,22 @@ namespace Training {
       static void Main (string[] args) {
          Console.Write ("Enter a string: ");
          string contestants = Console.ReadLine ().ToUpper () ?? "";
-         Console.WriteLine (contestants.Length == 0 ? "Enter a valid string." : $"{VotingContest (contestants).Item1},{VotingContest (contestants).Item2}");
+         Console.WriteLine (contestants.Length == 0 ? "Enter a valid string." : $"{VotingContest (contestants)}");
       }
 
       /// <summary>Determine the winner by which contestant has more votes</summary>
       /// <param name="contestants">string</param>
       /// <returns>It returns winner as char and voting as int data type</returns>
       static (char, int) VotingContest (string contestants) {
-         int[] votes = { };
+         List<(int, char)> voteCount = new ();
          foreach (char c in contestants) {
             if (char.IsLetter (c)) {
-               int count = contestants.Count (f => (f == c));
-               votes = votes.Append (count).ToArray ();
+               int count = contestants.Count (f => f == c);
+               (int, char) list = (count, c);
+               voteCount.Add (list);
             }
          }
-         return (contestants[Array.IndexOf (votes, votes.Max ())], votes.Max ());
+         return (voteCount.MaxBy (x => x.Item1).Item2, voteCount.MaxBy (x => x.Item1).Item1);
       }
       #endregion
    }
