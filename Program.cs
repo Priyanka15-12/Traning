@@ -25,30 +25,32 @@ namespace Training {
       static void Main (string[] args) {
          string[] words = File.ReadAllLines ("C:\\Users\\priyanka.s\\Downloads\\words.txt");
          char[] letters = { 'U', 'X', 'L', 'T', 'A', 'E', 'N' };
-         List<(int, string)> wordsList = new ();
+         List<(int, string, bool)> wordsList = new ();
          foreach (string word in words) {
             if (word.Length >= 4 && word.Contains (letters[0]) && word.All (letters.Contains)) {
-               int marks = 0;
-               if (word.Length == 4)
-                  marks += 1;
-               else if (word.Length > 4) {
-                  if (letters.All (word.Contains)) {
-                     Console.ForegroundColor = ConsoleColor.Green;
-                     marks += word.Length + 7;
-                  } else marks += word.Length;
-               }
-               (int, string) list = (marks, word);
-               wordsList.Add (list);
+               int marks = (word.Length == 4 ? 1 : (IsPangram (letters, word) ? word.Length + 7 : word.Length));
+               wordsList.Add ((marks, word, IsPangram (letters, word)));
             }
          }
+         if (wordsList.Count == 0) throw new Exception ("Empty list");
          var descendingOrderedList = wordsList.OrderByDescending (x => x.Item1).ToList ();
          for (int i = 0; i < descendingOrderedList.Count; i++) {
-            Console.WriteLine ($"{descendingOrderedList[i].Item1,3}. {descendingOrderedList[i].Item2}");
-            Console.ResetColor ();
+            if (descendingOrderedList[i].Item3) {
+               Console.ForegroundColor = ConsoleColor.Green;
+               Console.WriteLine ($"{descendingOrderedList[i].Item1,3}. {descendingOrderedList[i].Item2}");
+               Console.ResetColor ();
+            } else
+               Console.WriteLine ($"{descendingOrderedList[i].Item1,3}. {descendingOrderedList[i].Item2}");
          }
          Console.WriteLine ("----");
          Console.WriteLine ($"{descendingOrderedList.Sum (point => point.Item1)} total");
       }
+
+      /// <summary>Checks if word is pangram or not</summary>
+      /// <param name="letters"></param>
+      /// <param name="word"></param>
+      /// <returns>It returns true if word is pangram</returns>
+      static bool IsPangram (char[] letters, string word) => letters.All (word.Contains);
       #endregion
    }
    #endregion
