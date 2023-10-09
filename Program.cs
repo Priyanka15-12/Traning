@@ -23,7 +23,7 @@ namespace Training {
       /// <summary>This method shows all valid Spelling Bee words with points</summary>
       /// <param name="args">arguments</param>
       static void Main (string[] args) {
-         string[] words = File.ReadAllLines ("C:\\Users\\priyanka.s\\Downloads\\words.txt");
+         string[] words = File.ReadAllLines ("Resource\\words .txt");
          char[] letters = { 'U', 'X', 'L', 'T', 'A', 'E', 'N' };
          List<(int, string, bool)> wordsList = new ();
          foreach (string word in words) {
