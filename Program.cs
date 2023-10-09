@@ -27,9 +27,10 @@ namespace Training {
          char[] letters = { 'U', 'X', 'L', 'T', 'A', 'E', 'N' };
          List<(int Score, string Word, bool Pangram)> wordsList = new ();
          foreach (string word in words) {
+            var isPangram = IsPangram (letters, word);
             if (word.Length >= 4 && word.Contains (letters[0]) && word.All (letters.Contains)) {
-               int marks = (word.Length == 4 ? 1 : (IsPangram (letters, word) ? word.Length + 7 : word.Length));
-               wordsList.Add ((marks, word, IsPangram (letters, word)));
+               int marks = (word.Length == 4 ? 1 : (isPangram ? word.Length + 7 : word.Length));
+               wordsList.Add ((marks, word, isPangram));
             }
          }
          if (wordsList.Count == 0) throw new Exception ("Empty list");
