@@ -17,6 +17,9 @@ namespace Training {
       /// <param name="args">arguments</param>
       static void Main (string[] args) {
          string[] wordArr = { "glory", "floor", "ant", "victory", "aegilops", "access" };
+         //{ "glory", "victory", "aegilops", "access", "abcdefghijk" }=> abcdefghijk as the longest abecedarian word.
+         //{ "glory", "floor", "ant", "everything", "aegilops", "access" }=> aegilops as the longest abecedarian word.
+         //{ "strawberry", "everything", "victory", "apple" }=> No abecedarian word here.
          int maxLength = 0, maxIndex = -1;
          for (int index = 0; index < wordArr.Length; index++) {
             string word = wordArr[index];
@@ -34,7 +37,7 @@ namespace Training {
       static bool IsAbecedarian (string word) {
          bool isAbecedarian = true;
          for (int i = 1; i < word.Length; i++)
-            if (word[i] < word[i - 1]) isAbecedarian = false;
+            if (word[i] < word[i - 1]) return false;
          return isAbecedarian;
       }
       #endregion
