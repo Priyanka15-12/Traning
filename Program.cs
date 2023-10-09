@@ -24,7 +24,7 @@ namespace Training {
          Console.Write ("Enter Password: ");
          string password = Console.ReadLine () ?? "";
          (bool isStrong, string errorMsg) = IsStrongPassword (password);
-         Console.WriteLine (isStrong ? "Strong psssword" : $"Not a strong password \n{errorMsg}");
+         Console.WriteLine (isStrong ? "Strong password" : $"Not a strong password \n{errorMsg}");
          //Password: ~~Pass$123=> It shows all the error messages.
          //Password: Pass$123=> Strong Password.
          //Password: Pass$123~=> Not a strong password with error message.
