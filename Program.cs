@@ -25,6 +25,9 @@ namespace Training {
          string password = Console.ReadLine () ?? "";
          (bool isStrong, string errorMsg) = IsStrongPassword (password);
          Console.WriteLine (isStrong ? "Strong psssword" : $"Not a strong password \n{errorMsg}");
+         //Password: ~~Pass$123=> It shows all the error messages.
+         //Password: Pass$123=> Strong Password.
+         //Password: Pass$123~=> Not a strong password with error message.
       }
 
       /// <summary>Checks if character is lowercase or not</summary>
@@ -45,25 +48,24 @@ namespace Training {
 
       /// <summary>Check whether password is strong or not and finds the reasons for weak password</summary>
       /// <param name="password">string password</param>
-      /// <returns>Its returns bool value true for strong password or false for not a strong password with string of error message</returns>
-      static (bool, string ) IsStrongPassword (string password) {
+      /// <returns>Its returns bool value true for strong password or false for not a strong password with string of error messages</returns>
+      static (bool, string) IsStrongPassword (string password) {
          StringBuilder errorMsg = new ();
          string spl = "!@#$%^&*()-+";
-         bool lower = false, upper = false, digit = false, splChar = false;
-         bool flag = password.All(c=> char.IsLetter (c) || char.IsDigit (c) || spl.Contains (c));
-         if (flag) {
-            foreach (char c in password) {
-               if (IsLower (c)) lower = true;
-               else if (IsUpper (c)) upper = true;
-               else if (IsDigit (c)) digit = true;
-               else if (spl.Contains (c)) splChar = true;
-            }
-            if (password.Length < 6) errorMsg.Append ("Password must have atleast six characters.\n");
-            if (!upper) errorMsg.Append ("Password must have atleast one uppercase character.\n");
-            if (!lower) errorMsg.Append ("Password must have atleast one lowercase character.\n");
-            if (!digit) errorMsg.Append ("Password must have atleast one digit.\n");
-            if (!splChar) errorMsg.Append ($"Password must have atleast one special character. The special characters are:{spl}");
-         } else errorMsg.Append ($"Please choose characters within :{spl}");
+         bool lower = false, upper = false, digit = false, splChar = false, inValidChar = false;
+         foreach (char c in password) {
+            if (IsLower (c)) lower = true;
+            else if (IsUpper (c)) upper = true;
+            else if (IsDigit (c)) digit = true;
+            else if (spl.Contains (c)) splChar = true;
+            else { inValidChar = true; break; }
+         }
+         if (inValidChar) errorMsg.Append ($"Please choose characters within :{spl}\n");
+         if (password.Length < 6) errorMsg.Append ("Password must have atleast six characters.\n");
+         if (!upper) errorMsg.Append ("Password must have atleast one uppercase character.\n");
+         if (!lower) errorMsg.Append ("Password must have atleast one lowercase character.\n");
+         if (!digit) errorMsg.Append ("Password must have atleast one digit.\n");
+         if (!splChar) errorMsg.Append ($"Password must have atleast one special character. The special characters are:{spl}");
          return (errorMsg.Length == 0, errorMsg.ToString ());
       }
       #endregion
