@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------
-// Training ~ A training program for new joinees at Metamation, Batch - July 2023
+// Training ~ A training program for new interns at Metamation, Batch - July 2023
 // Copyright (c) Metamation India.                                              
 // ------------------------------------------------------------------------
 // Program.cs
@@ -15,13 +15,14 @@ namespace Training {
       /// <summary>Displays all string string permutation</summary>
       /// <param name="args">arguments</param>
       static void Main (string[] args) {
-         string word = "NOT";
+         Console.Write ("Enter a string to permute: ");
+         string word = Console.ReadLine () ?? "";
          Permute (word.ToCharArray (), 0);
       }
 
       /// <summary>Permutate the given word and print all string permutation</summary>
       /// <param name="wordArr">Char array</param>
-      /// <param name="fixedChar">index of char</param>
+      /// <param name="fixedChar">indices of char to swap, starts from leftmost to rightmost char</param>
       static void Permute (char[] wordArr, int fixedChar) {
          if (fixedChar == wordArr.Length - 1)
             Console.WriteLine (wordArr);
@@ -38,9 +39,7 @@ namespace Training {
       /// <param name="wordArr">string word</param>
       /// <param name="i">index of char</param>
       /// <param name="j">index of char</param>
-      static void Swap (char[] wordArr, int i, int j) {
-         (wordArr[i], wordArr[j]) = (wordArr[j], wordArr[i]);
-      }
+      static void Swap (char[] wordArr, int i, int j) => (wordArr[i], wordArr[j]) = (wordArr[j], wordArr[i]);
       #endregion
    }
    #endregion
