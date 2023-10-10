@@ -24,15 +24,14 @@ namespace Training {
       /// <param name="contestants">string</param>
       /// <returns>It returns winner as char and voting as int data type</returns>
       static (char, int) VotingContest (string contestants) {
-         List<(int, char)> voteCount = new ();
+         List<(int Score, char Candidate)> voteCount = new ();
          foreach (char c in contestants) {
             if (char.IsLetter (c)) {
                int count = contestants.Count (f => f == c);
-               (int, char) list = (count, c);
-               voteCount.Add (list);
+               voteCount.Add ((count, c));
             }
          }
-         return (voteCount.MaxBy (x => x.Item1).Item2, voteCount.MaxBy (x => x.Item1).Item1);
+         return (voteCount.MaxBy (x => x.Score).Candidate, voteCount.MaxBy (x => x.Score).Score);
       }
       #endregion
    }
