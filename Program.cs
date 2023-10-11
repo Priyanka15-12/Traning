@@ -20,9 +20,9 @@ namespace Training {
          int.TryParse (Console.ReadLine (), out int x);
          Console.Write ("Enter the price of chocolate: ");
          int.TryParse (Console.ReadLine (), out int p);
-         Console.Write ("Enter number of wrappers for exchange chocolate: ");
+         Console.Write ("Enter number of wrappers to exchange chocolate which should greater than one: ");
          int.TryParse (Console.ReadLine (), out int w);
-         if (x > 1 && p > 1 && w > 1) ChocolateWrappers (x, p, w);
+         if (x > 0 && p > 0 && w > 1) ChocolateWrappers (x, p, w);
          else Console.WriteLine ("Provide natural numbers");
       }
 
@@ -31,14 +31,16 @@ namespace Training {
       /// <param name="chocoPrice">int - chocolate price</param>
       /// <param name="wrapper">int - wrapper to exchange</param>
       static void ChocolateWrappers (int amount, int chocoPrice, int wrapper) {
-         int totalChoco, unusedWrapper = 0, exchange = 0;
+         int totalChoco, unusedWrapper, exchange;
          int chocolate = amount / chocoPrice;
-         int balance = amount - (chocolate * chocoPrice);
-         if (chocolate >= wrapper) {
-            exchange = chocolate / wrapper;
-            unusedWrapper = (chocolate % wrapper) + 1;
+         int balance = amount % chocoPrice;
+         unusedWrapper = chocolate;
+         while (unusedWrapper >= wrapper) {
+            exchange = unusedWrapper / wrapper;
+            chocolate += exchange;
+            unusedWrapper = unusedWrapper % wrapper + exchange;
          }
-         totalChoco = chocolate + exchange;
+         totalChoco = chocolate;
          Console.WriteLine ($"Chocolate = {totalChoco}, Unused money = {balance}, Wrappers = {unusedWrapper}");
       }
       #endregion
