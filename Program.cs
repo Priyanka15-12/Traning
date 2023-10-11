@@ -19,9 +19,9 @@ namespace Training {
          for (double i = 0; i < 7;) {
             Console.Write ($"\nWhen number is divided by {divisor}, is the remainder {remainder} or not? (Y)es or (N)o: ");
             char key = char.ToLower (Console.ReadKey ().KeyChar);
-            if (key == 'n' || key == 'y') {
+            if (key is 'n' or 'y') {
                divisor *= 2;
-               if (key == 'n') remainder += (Math.Pow (2, i)); i++;
+               if (key == 'n') remainder += Math.Pow (2, i); i++;
             } else Console.Write ("\nEnter a valid key (y or n).");
          }
          Console.WriteLine ($"\nYour answer is {remainder}");
