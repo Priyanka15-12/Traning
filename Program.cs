@@ -37,11 +37,12 @@ namespace Training {
       /// <param name="splChar">char which added at last</param>
       static void SortAndSwap (List<char> inputList, char order, char splChar) {
          int splCharCount = inputList.RemoveAll (x => x == splChar);
-         inputList = (order is 'D' or 'd' ? inputList.OrderDescending ().ToList () : inputList.OrderBy (x => x).ToList ());
+         inputList.Sort ();
+         if ((order is 'D' or 'd')) inputList.Reverse ();
          for (int i = 0; i < splCharCount; i++) inputList.Add (splChar);
-         Console.WriteLine (String.Join (" ", inputList));
+         Console.WriteLine (string.Join (" ", inputList));
       }
       #endregion
    }
    #endregion
-}
+}   
