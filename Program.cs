@@ -21,28 +21,25 @@ namespace Training {
          string characters = Console.ReadLine ().ToLower () ?? "";
          if (characters.Length == 0) Console.WriteLine ("Provide some characters");
          else {
-            var CharacterArr = characters.ToCharArray ();
+            var characterList = characters.ToList ();
             Console.Write ("Pick a character from your input to print at the last: ");
             char.TryParse (Console.ReadLine (), out char splChar);
             Console.Write ("Enter D or d for descending order otherwise press Enter key. ");
             char key = Console.ReadKey ().KeyChar;
             Console.WriteLine ();
-            SortAndSwap (CharacterArr, key, splChar);
+            SortAndSwap (characterList, key, splChar);
          }
       }
 
-      /// <summary>By enter D/d, it gives descending order or else ascending order, by special characters appended at last</summary>
-      /// <param name="inputArr">input array</param>
+      /// <summary>By entering D/d, it gives descending order or otherwise ascending order, by special characters appended at last</summary>
+      /// <param name="inputList">input array</param>
       /// <param name="order">key for deciding descending or ascending</param>
-      /// <param name="find">char which added at last</param>
-      static void SortAndSwap (char[] inputArr, char order, char find) {
-         inputArr = (order == 'D' || order == 'd' ? inputArr.OrderDescending ().ToArray () : inputArr.OrderBy (x => x).ToArray ());
-         var charList = inputArr.ToList ();
-         int findCount = charList.RemoveAll (x => x == find);
-         for (int i = 0; i < findCount; i++)
-            charList.Add (find);
-         foreach (char x in charList)
-            Console.Write (x + " ");
+      /// <param name="splChar">char which added at last</param>
+      static void SortAndSwap (List<char> inputList, char order, char splChar) {
+         int splCharCount = inputList.RemoveAll (x => x == splChar);
+         inputList = (order is 'D' or 'd' ? inputList.OrderDescending ().ToList () : inputList.OrderBy (x => x).ToList ());
+         for (int i = 0; i < splCharCount; i++) inputList.Add (splChar);
+         Console.WriteLine (String.Join (" ", inputList));
       }
       #endregion
    }
