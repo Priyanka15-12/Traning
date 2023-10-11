@@ -31,7 +31,8 @@ namespace Training {
                voteCount.Add ((count, c));
             }
          }
-         return (voteCount.MaxBy (x => x.Score).Candidate, voteCount.MaxBy (x => x.Score).Score);
+         var winner = voteCount.MaxBy (x => x.Score);
+         return (winner.Candidate, winner.Score);
       }
       #endregion
    }
