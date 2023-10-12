@@ -1,28 +1,23 @@
 ﻿namespace Training {
    internal class Program {
       static void Main (string[] args) {
-         Console.Write ("Enter the value of n: ");
-         int.TryParse (args[0], out int n);
-         if (Armstrong (n) != -1)
-            Console.WriteLine ($"The {n}th armstrong number is {Armstrong (n)}");
+         if (int.TryParse (args[0], out int n) && n > 0 && n <= 25)
+            Console.WriteLine ($"The {n}th armstrong number is {NthArmstrong (n)}");
          else Console.WriteLine ("Out of range. Enter n value from 1 to 25.");
       }
 
-      static int Armstrong (int n) {
+      static int NthArmstrong (int n) {
          int count = 0;
-         for (int num = 1; ; num++) {
-            int sum = 0;
+         for (int i = 1; ; i++) {
+            int sum = 0, num = i;
             int length = num.ToString ().Length;
             while (num > 0) {
-               sum += ((int)Math.Pow (num % 10, length));
+               sum += (int)Math.Pow (num % 10, length);
                num /= 10;
             }
-            if (num == sum) count++;
-            if (count == n)
-               if (count <= 25) return sum;
-               else break;
+            if (i == sum) count++;
+            if (count == n) return sum;
          }
-         return -1;
       }
    }
 }
