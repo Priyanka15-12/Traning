@@ -13,20 +13,16 @@ namespace Training {
    /// <summary>Extension of Spelling Bee</summary>
    internal class Program {
       #region Methods ---------------------------------------------
-      /// <summary>Display the 7 seed letters for the Spelling Bee.</summary>
+      /// <summary>Display the 7 seed letters of the Spelling Bee.</summary>
       /// <param name="args"></param>
       static void Main (string[] args) {
          Dictionary<char, int> charAndCount = new ();
-         string wordFile = File.ReadAllText ("D:/Work/words.txt");
-         char[] letters = Enumerable.Range ('A', 26).Select (x => (char)x).ToArray ();
-         for (int ch = 0; ch < letters.Length; ch++) {
-            int count = wordFile.Count (x => x == letters[ch]);
-            if (count > 0) charAndCount.Add (letters[ch], count);
-         }
+         foreach (char ch in File.ReadAllText ("D:/Work/words.txt"))
+            if (ch is >= 'A' and <= 'Z')
+               charAndCount[ch] = charAndCount.ContainsKey (ch) ? charAndCount[ch] + 1 : 1;
          var orderedCount = charAndCount.OrderByDescending (x => x.Value).Take (7);
-         Console.Write ("Seed letters and their count for Spelling Bee:\n");
+         Console.Write ("Seed letters and their count of Spelling Bee:\n");
          foreach (var element in orderedCount) Console.WriteLine ($"{element.Key} - {element.Value}");
-
       }
       #endregion
    }
