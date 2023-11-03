@@ -5,6 +5,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <BaseOutputPath>W:\Training\bin</BaseOutputPath>
   </PropertyGroup>
 
 </Project>
