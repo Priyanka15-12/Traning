@@ -9,14 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Debug\**" />
     <Compile Remove="dotCover.Output\**" />
     <Compile Remove="ListProj\**" />
     <Compile Remove="MyListTest\**" />
     <Compile Remove="TStackTest\**" />
+    <EmbeddedResource Remove="Debug\**" />
     <EmbeddedResource Remove="dotCover.Output\**" />
     <EmbeddedResource Remove="ListProj\**" />
     <EmbeddedResource Remove="MyListTest\**" />
     <EmbeddedResource Remove="TStackTest\**" />
+    <None Remove="Debug\**" />
     <None Remove="dotCover.Output\**" />
     <None Remove="ListProj\**" />
     <None Remove="MyListTest\**" />

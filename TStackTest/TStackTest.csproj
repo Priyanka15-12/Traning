@@ -7,9 +7,16 @@
 
     <IsPackable>false</IsPackable>
 
-    <BaseOutputPath>W:\Training\bin</BaseOutputPath>
+    <BaseOutputPath>W:\Training\TStackTest\bin</BaseOutputPath>
 	  <OutDir>..\bin</OutDir>
+	  <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="bin\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <None Remove="bin\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />

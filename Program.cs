@@ -22,13 +22,8 @@ namespace Training {
    /// <summary>TSatck</summary>
    /// <typeparam name="T"></typeparam>
    public class TStack<T> {
-      private int mCount, mCapacity;
-      private T[] elements;
-
-      public TStack () {
-         mCapacity = 4; mCount = 0; elements = new T[4];
-      }
-
+      T[] mElements = new T[4];
+      int mCount = 0, mCapacity = 4;
       /// <summary>Shows count of the stack</summary>
       public int Count => mCount;
       /// <summary>Shows capacity of the stack</summary>
@@ -39,17 +34,17 @@ namespace Training {
          //Resize the capacity of stack when needed
          if (mCount == mCapacity) {
             mCapacity *= 2;
-            Array.Resize (ref elements, mCapacity);
+            Array.Resize (ref mElements, mCapacity);
          }
-         elements[mCount] = a;
+         mElements[mCount] = a;
          mCount++;
       }
       /// <summary>Remove the element in the order of LIFO</summary>
       /// <returns>Shows the removed element</returns>
       public T Pop () {
          if (IsEmpty) throw new InvalidOperationException ("Pop can't do in empty stack");
-         T a = elements[mCount - 1];
-         elements[mCount - 1] = default;
+         T a = mElements[mCount - 1];
+         mElements[mCount - 1] = default;
          mCount--;
          return a;
       }
@@ -57,7 +52,7 @@ namespace Training {
       /// <returns>Return element which added at last</returns>
       public T Peek () {
          if (IsEmpty) throw new InvalidOperationException ("Peek can't do in empty stack");
-         return elements[mCount - 1];
+         return mElements[mCount - 1];
       }
       /// <summary>Shows whether the stack is empty or not</summary>
       public bool IsEmpty => mCount == 0;
