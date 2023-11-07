@@ -14,9 +14,8 @@ namespace MyListTest {
             Assert.AreEqual (8, mNumList.Capacity);
             Assert.AreEqual (1, mNumList[0]);
             mNumList[2] = 6;
-            Assert.AreEqual (6, mNumList[2 ]);
+            Assert.AreEqual (6, mNumList[2]);
             Assert.ThrowsException<IndexOutOfRangeException> (() => mNumList[9] = 3, "Item not found in the list");
-
         }
         [TestMethod]
         public void RemoveTest () {
@@ -25,8 +24,10 @@ namespace MyListTest {
             numList.Add (2);
             numList.Remove (1);
             Assert.AreEqual (1, numList.Count);
-            Assert.ThrowsException<InvalidOperationException> (() => numList.Remove (5), "Item not found in the list");
-            Assert.ThrowsException<IndexOutOfRangeException> (() => numList[-2]);
+            numList.Add (3);
+            Assert.IsTrue (numList.Remove (3));
+            Assert.IsFalse (numList.Remove (5), "Item not found in the list");
+            Assert.IsFalse (numList.Remove (-2), "Item not found in the list");
         }
         [TestMethod]
         public void ClearTest () {

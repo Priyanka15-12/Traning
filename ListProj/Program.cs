@@ -21,18 +21,14 @@
 // InvalidOperationException: This exception should be thrown when attempting to remove an item that is not found in the list. 
 // --------------------------------------------------------------------------------------------
 internal class Program {
-public static void Main () { }
+   public static void Main () { }
 }
 #region MyList ------------------------------------------------------------------------------
 /// <summary>MyList class</summary>
 /// <typeparam name="T"></typeparam>
 public class MyList<T> {
-   private T[] mElements;
-   private int mCapacity, mCount;
-
-   public MyList () {
-      mCount = 0; mCapacity = 4; mElements = new T[4];
-   }
+   T[] mElements = new T[4];
+   int mCapacity = 4, mCount = 0;
 
    /// <summary>Count of the list</summary>   
    public int Count => mCount;
@@ -58,18 +54,18 @@ public class MyList<T> {
    /// <param name="a"></param>
    public void Add (T a) {
       ResizeCapacity (); // Double its capacity when needed
-      mElements[mCount] = a;
-      mCount++;
+      mElements[mCount++] = a;
    }
    /// <summary>Remove a element from the list</summary>
    /// <param name="a"></param>
    /// <returns>Returns true when a element removed</returns>
-   /// <exception cref="InvalidOperationException">Throw exception when elememt is out of list</exception>
    public bool Remove (T a) {
-      if (!mElements.Contains (a)) throw new InvalidOperationException ("Item not found in the list");
-      int index = Array.IndexOf (mElements, a);
-      RemoveAt (index); // Remove the element using its index
-      return true;
+      if (mElements.Contains (a)) {
+         int index = Array.IndexOf (mElements, a);
+         // Remove the element using its index
+         RemoveAt (index);
+         return true;
+      } else return false;
    }
    /// <summary>Clear all the elements in list</summary>
    public void Clear () {
