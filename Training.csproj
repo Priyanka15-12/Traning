@@ -7,4 +7,19 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Debug\**" />
+    <Compile Remove="ListProj\**" />
+    <Compile Remove="MyListTest\**" />
+    <Compile Remove="TStackTest\**" />
+    <EmbeddedResource Remove="Debug\**" />
+    <EmbeddedResource Remove="ListProj\**" />
+    <EmbeddedResource Remove="MyListTest\**" />
+    <EmbeddedResource Remove="TStackTest\**" />
+    <None Remove="Debug\**" />
+    <None Remove="ListProj\**" />
+    <None Remove="MyListTest\**" />
+    <None Remove="TStackTest\**" />
+  </ItemGroup>
+
 </Project>

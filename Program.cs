@@ -16,13 +16,15 @@ namespace Training {
       /// <summary>Display the 7 seed letters of the Spelling Bee.</summary>
       /// <param name="args"></param>
       static void Main (string[] args) {
-         Dictionary<char, int> charAndCount = new ();
-         foreach (char ch in File.ReadAllText ("D:/Work/words.txt"))
-            if (ch is >= 'A' and <= 'Z')
-               charAndCount[ch] = charAndCount.ContainsKey (ch) ? charAndCount[ch] + 1 : 1;
-         var orderedCount = charAndCount.OrderByDescending (x => x.Value).Take (7);
+         (char letters, int count)[] charAndCount = new (char, int)[26];
+         foreach (char item in File.ReadAllText ("D:/Work/words.txt").ToUpper ())
+            if (char.IsLetter (item))
+               if (charAndCount.Any (x => x.letters == item))
+                  charAndCount[item - 'A'].count += 1;
+               else charAndCount[item - 'A'] = (item, 1);
          Console.Write ("Seed letters and their count of Spelling Bee:\n");
-         foreach (var element in orderedCount) Console.WriteLine ($"{element.Key} - {element.Value}");
+         var orderedCount = charAndCount.OrderByDescending (x => x.count).Take (7);
+         foreach (var (letters, count) in orderedCount) Console.WriteLine ($"{letters} - {count}");
       }
       #endregion
    }
