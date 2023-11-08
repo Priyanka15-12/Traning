@@ -12,19 +12,10 @@
 //    public T Peek () { }
 //    public bool IsEmpty { get; }
 // }
-// InvalidOperationException: This exception should be thrown when attempting to pop or peek an empty stack. 
 // --------------------------------------------------------------------------------------------
 namespace Training {
    internal class Program {
-      static void Main (string[] args) {
-         TStack<int> num = new TStack<int> ();
-         num.Push(1);
-         num.Push(2);
-         num.Push(3);
-         Console.Write(num.Pop());
-         Console.Write(num.Pop());
-         Console.Write(num.Pop());
-      }
+      static void Main (string[] args) { }
    }
    #region TStack ------------------------------------------------------------------------------
    /// <summary>TSatck</summary>
@@ -58,7 +49,7 @@ namespace Training {
       public T Pop () {
          if (IsEmpty) throw new InvalidOperationException ("Pop can't do in empty stack");
          T a = mElements[mCount - 1];
-         mElements[mCount--] = default;
+         mElements[--mCount] = default;
          return a;
       }
 
