@@ -2,61 +2,83 @@
 namespace MyListTest {
     [TestClass]
     public class UnitTest1 {
-        MyList<int> mNumList = new ();
+        MyList<int> mNumbers = new ();
+        List<int> mListNum = new ();
+
         [TestMethod]
         public void AddTest () {
-            mNumList.Add (1);
-            mNumList.Add (2);
-            mNumList.Add (3);
-            mNumList.Add (4);
-            mNumList.Add (5);
-            Assert.AreEqual (5, mNumList.Count);
-            Assert.AreEqual (8, mNumList.Capacity);
-            Assert.AreEqual (1, mNumList[0]);
-            mNumList[2] = 6;
-            Assert.AreEqual (6, mNumList[2]);
-            Assert.ThrowsException<IndexOutOfRangeException> (() => mNumList[9] = 3, "Item not found in the list");
+            mNumbers.Add (1);
+            mNumbers.Add (2);
+            mListNum.Add (1);
+            mListNum.Add (2);
+            Assert.AreEqual (mNumbers.Count, mListNum.Count);
+            Assert.AreEqual (mNumbers.Capacity, mListNum.Capacity);
+            Assert.AreEqual (1, mNumbers[0]);
+            mNumbers[2] = 6;
+            Assert.AreEqual (6, mNumbers[2]);
+            Assert.ThrowsException<IndexOutOfRangeException> (() => mNumbers[9] = 3, "Item not found in the list");
         }
+
         [TestMethod]
         public void RemoveTest () {
-            mNumList.Add (1);
-            mNumList.Add (2);
-            mNumList.Remove (1);
-            Assert.AreEqual (1, mNumList.Count);
-            mNumList.Add (3);
-            Assert.IsTrue (mNumList.Remove (3));
-            Assert.IsFalse (mNumList.Remove (5), "Item not found in the list");
-            Assert.IsFalse (mNumList.Remove (-2), "Item not found in the list");
+            mNumbers.Add (1);
+            mNumbers.Add (2);
+            mListNum.Add (1);
+            mListNum.Add (2);
+            mNumbers.Remove (1);
+            mListNum.Remove (1);
+            Assert.AreEqual (mNumbers.Count, mListNum.Count);
+            mNumbers.Add (3);
+            mListNum.Add (4);
+            Assert.IsTrue (mListNum.Remove (4));
+            Assert.IsTrue (mNumbers.Remove (3));
+            Assert.IsFalse (mNumbers.Remove (5), "Item not found in the list");
+            Assert.IsFalse (mListNum.Remove (-2), "Item not found in the list");
         }
+
         [TestMethod]
         public void ClearTest () {
-            mNumList.Add (1);
-            mNumList.Add (1);
-            mNumList.Add (3);
-            mNumList.Clear ();
-            Assert.AreEqual (0, mNumList.Count);
+            mNumbers.Add (1);
+            mNumbers.Add (3);
+            mListNum.Add (4);
+            mListNum.Add (5);
+            mNumbers.Clear ();
+            mListNum.Clear ();
+            Assert.AreEqual (mNumbers.Count, mListNum.Count);
         }
+
         [TestMethod]
         public void InsertTest () {
-            mNumList.Add (1);
-            mNumList.Add (2);
-            mNumList.Add (4);
-            mNumList.Insert (2, 3);
-            Assert.AreEqual (4, mNumList.Count);
-            Assert.AreEqual (3, mNumList[2]);
-            mNumList.Insert (1, 7);
-            Assert.ThrowsException<IndexOutOfRangeException> (() => mNumList.Insert (7, 6), "Index is out of range");
-
+            mNumbers.Add (1);
+            mNumbers.Add (2);
+            mNumbers.Add (4);
+            mListNum.Add (1);
+            mListNum.Add (2);
+            mListNum.Add (3);
+            mNumbers.Insert (2, 3);
+            mListNum.Insert (2, 5);
+            Assert.AreEqual (mNumbers.Count, mListNum.Count);
+            Assert.AreEqual (3, mNumbers[2]);
+            Assert.AreEqual (5, mListNum[2]);
+            mNumbers.Insert (1, 7);
+            mListNum.Insert (3, 8);
+            Assert.AreEqual (8, mListNum[3]);
+            Assert.ThrowsException<ArgumentOutOfRangeException> (() => mNumbers.Insert (7, 6), "Index is out of range");
+            Assert.ThrowsException<ArgumentOutOfRangeException> (() => mListNum.Insert (10, 7), "Index is out of range");
         }
+
         [TestMethod]
         public void RemoveAtTest () {
-            mNumList.Add (1);
-            mNumList.Add (2);
-            mNumList.Add (4);
-            mNumList.Add (2);
-            mNumList.Add (1);
-            mNumList.RemoveAt (2);
-            Assert.ThrowsException<IndexOutOfRangeException> (() => mNumList.RemoveAt (9), "Index is out of range");
+            mNumbers.Add (1);
+            mNumbers.Add (2);
+            mNumbers.Add (4);
+            mListNum.Add (1);
+            mListNum.Add (2);
+            mNumbers.RemoveAt (2);
+            mListNum.RemoveAt (1);
+            Assert.AreEqual (2, mNumbers[1]);
+            Assert.AreEqual (1, mListNum[0]);
+            Assert.ThrowsException<ArgumentOutOfRangeException> (() => mNumbers.RemoveAt (9), "Index is out of range");
         }
     }
 }

@@ -17,8 +17,6 @@
 //   public void Insert (int index, T a) { }
 //   public void RemoveAt (int index) { }
 // }
-// IndexOutOfRangeException: This exception should be thrown when attempting to access an index that is out of the valid range. 
-// InvalidOperationException: This exception should be thrown when attempting to remove an item that is not found in the list. 
 // --------------------------------------------------------------------------------------------
 internal class Program {
    public static void Main () { }
@@ -27,9 +25,7 @@ internal class Program {
 /// <summary>MyList class</summary>
 /// <typeparam name="T"></typeparam>
 public class MyList<T> {
-   T[] mElements = new T[4];
-   int mCapacity = 4, mCount = 0;
-
+   #region Properties --------------------------------------------
    /// <summary>Count of the list</summary>   
    public int Count => mCount;
 
@@ -50,47 +46,53 @@ public class MyList<T> {
          mElements[index] = value; //Set the value at the index
       }
    }
+   #endregion
+
+   #region Methods -----------------------------------------------
    /// <summary>Add a element at end of the list</summary>
    /// <param name="a"></param>
    public void Add (T a) {
       ResizeCapacity (); // Double its capacity when needed
       mElements[mCount++] = a;
    }
+
    /// <summary>Remove a element from the list</summary>
    /// <param name="a"></param>
    /// <returns>Returns true when a element removed</returns>
    public bool Remove (T a) {
-      if (mElements.Contains (a)) {
-         int index = Array.IndexOf (mElements, a);
-         // Remove the element using its index
-         RemoveAt (index);
-         return true;
-      } else return false;
+      int index = Array.IndexOf (mElements, a);
+      if (index == -1) return false;
+      // Remove the element using its index
+      RemoveAt (index);
+      return true;
    }
+
    /// <summary>Clear all the elements in list</summary>
    public void Clear () {
       Array.Clear (mElements, 0, mCount);
       mCount = 0;
    }
+
    /// <summary>Insert a element with the index</summary>
    /// <param name="index"></param>
    /// <param name="a"></param>
-   /// <exception cref="IndexOutOfRangeException"></exception>
+   /// <exception cref="ArgumentOutOfRangeException"></exception>
    public void Insert (int index, T a) {
-      if (index < 0 || index > mCount) throw new IndexOutOfRangeException ("Index is out of range");
+      if (index < 0 || index > mCount) throw new ArgumentOutOfRangeException ("Index is out of range");
       ResizeCapacity ();
       for (int i = mCount; i > index; i--) mElements[i] = mElements[i - 1];
       mElements[index] = a; mCount++;
    }
+
    /// <summary>Remove the element using its index</summary>
    /// <param name="index"></param>
-   /// <exception cref="IndexOutOfRangeException">Throw exception when index is out of range</exception>
+   /// <exception cref="ArgumentOutOfRangeException">Throw exception when index is out of range</exception>
    public void RemoveAt (int index) {
-      if (index < 0 || index >= mCount) throw new IndexOutOfRangeException ("Index is out of range");
+      if (index < 0 || index >= mCount) throw new ArgumentOutOfRangeException ("Index is out of range");
       for (int i = index; i < mCount - 1; i++) mElements[i] = mElements[i + 1];
-      mElements[mCount - 1] = default;
-      mCount--;
+      mElements[--mCount] = default;
    }
+
    /// <summary>Resize the capacity of list</summary>
    private void ResizeCapacity () {
       if (mCount == mCapacity) {
@@ -98,5 +100,11 @@ public class MyList<T> {
          Array.Resize (ref mElements, mCapacity);
       }
    }
+   #endregion
+
+   #region Private data ------------------------------------------
+   T[] mElements = new T[4];
+   int mCapacity = 4, mCount = 0;
+   #endregion
    #endregion
 }
