@@ -16,18 +16,32 @@
 // --------------------------------------------------------------------------------------------
 namespace Training {
    internal class Program {
-      static void Main (string[] args) { }
+      static void Main (string[] args) {
+         TStack<int> num = new TStack<int> ();
+         num.Push(1);
+         num.Push(2);
+         num.Push(3);
+         Console.Write(num.Pop());
+         Console.Write(num.Pop());
+         Console.Write(num.Pop());
+      }
    }
    #region TStack ------------------------------------------------------------------------------
    /// <summary>TSatck</summary>
    /// <typeparam name="T"></typeparam>
    public class TStack<T> {
-      T[] mElements = new T[4];
-      int mCount = 0, mCapacity = 4;
+      #region Properties --------------------------------------------
       /// <summary>Shows count of the stack</summary>
       public int Count => mCount;
+
       /// <summary>Shows capacity of the stack</summary>
       public int Capacity => mCapacity;
+
+      /// <summary>Shows whether the stack is empty or not</summary>
+      public bool IsEmpty => mCount == 0;
+      #endregion
+
+      #region Methods -----------------------------------------------
       /// <summary>Add a element in the stack</summary>
       /// <param name="a">Element of stack</param>
       public void Push (T a) {
@@ -36,26 +50,30 @@ namespace Training {
             mCapacity *= 2;
             Array.Resize (ref mElements, mCapacity);
          }
-         mElements[mCount] = a;
-         mCount++;
+         mElements[mCount++] = a;
       }
+
       /// <summary>Remove the element in the order of LIFO</summary>
       /// <returns>Shows the removed element</returns>
       public T Pop () {
          if (IsEmpty) throw new InvalidOperationException ("Pop can't do in empty stack");
          T a = mElements[mCount - 1];
-         mElements[mCount - 1] = default;
-         mCount--;
+         mElements[mCount--] = default;
          return a;
       }
+
       /// <summary>Shows the element in the order of LIFO</summary>
       /// <returns>Return element which added at last</returns>
       public T Peek () {
          if (IsEmpty) throw new InvalidOperationException ("Peek can't do in empty stack");
          return mElements[mCount - 1];
       }
-      /// <summary>Shows whether the stack is empty or not</summary>
-      public bool IsEmpty => mCount == 0;
+      #endregion
+
+      #region Private data ------------------------------------------
+      T[] mElements = new T[4];
+      int mCount = 0, mCapacity = 4;
+      #endregion 
    }
    #endregion
 }
