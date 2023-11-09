@@ -35,14 +35,13 @@ public class MyList<T> {
    /// <summary>Set a element</summary>
    /// <param name="index">Index of element</param>
    /// <returns>Return the element from list using its index</returns>
-   /// <exception cref="IndexOutOfRangeException">Throw exception when index is out of range</exception>
    public T this[int index] {
       get {
-         if (index < 0 || index > mCount) throw new IndexOutOfRangeException ("Index is out of range");
+         IndexException (index);
          return mElements[index];
       }
       set {
-         if (index < 0 || index > mCount) throw new IndexOutOfRangeException ("Index is out of range");
+         IndexException (index);
          mElements[index] = value; //Set the value at the index
       }
    }
@@ -76,9 +75,8 @@ public class MyList<T> {
    /// <summary>Insert a element with the index</summary>
    /// <param name="index"></param>
    /// <param name="a"></param>
-   /// <exception cref="ArgumentOutOfRangeException"></exception>
    public void Insert (int index, T a) {
-      if (index < 0 || index > mCount) throw new ArgumentOutOfRangeException ("Index is out of range");
+      ArgumentException (index, mCount);
       ResizeCapacity ();
       for (int i = mCount; i > index; i--) mElements[i] = mElements[i - 1];
       mElements[index] = a; mCount++;
@@ -88,7 +86,7 @@ public class MyList<T> {
    /// <param name="index"></param>
    /// <exception cref="ArgumentOutOfRangeException">Throw exception when index is out of range</exception>
    public void RemoveAt (int index) {
-      if (index < 0 || index >= mCount) throw new ArgumentOutOfRangeException ("Index is out of range");
+      ArgumentException (index, mCount - 1);
       for (int i = index; i < mCount - 1; i++) mElements[i] = mElements[i + 1];
       mElements[--mCount] = default;
    }
@@ -99,6 +97,21 @@ public class MyList<T> {
          mCapacity *= 2; // Double the capacity
          Array.Resize (ref mElements, mCapacity);
       }
+   }
+
+   /// <summary>Index out of range exception</summary>
+   /// <param name="index">Index of elements</param>
+   /// <exception cref="IndexOutOfRangeException"></exception>
+   private void IndexException (int index) {
+      if (index < 0 || index > mCount) throw new IndexOutOfRangeException ("Index is out of range");
+   }
+
+   /// <summary>Argument out of range exception</summary>
+   /// <param name="index">Index of elements</param>
+   /// <param name="count">Count of elements in list</param>
+   /// <exception cref="ArgumentOutOfRangeException"></exception>
+   private void ArgumentException (int index, int count) {
+      if (index < 0 || index > count) throw new ArgumentOutOfRangeException ("Index is out of range");
    }
    #endregion
 
