@@ -2,8 +2,6 @@
 namespace MyListTest {
     [TestClass]
     public class UnitTest1 {
-        MyList<int> mNumbers = new ();
-        List<int> mListNum = new ();
 
         [TestMethod]
         public void AddTest () {
@@ -80,5 +78,8 @@ namespace MyListTest {
             Assert.AreEqual (1, mListNum[0]);
             Assert.ThrowsException<ArgumentOutOfRangeException> (() => mNumbers.RemoveAt (9), "Index is out of range");
         }
+
+        MyList<int> mNumbers = new ();
+        List<int> mListNum = new ();
     }
 }
