@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,5 +6,28 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="dotCover.Output\**" />
+    <Compile Remove="ListProj\**" />
+    <Compile Remove="MyListTest\**" />
+    <Compile Remove="QueueTest\**" />
+    <Compile Remove="TStackTest\**" />
+    <EmbeddedResource Remove="dotCover.Output\**" />
+    <EmbeddedResource Remove="ListProj\**" />
+    <EmbeddedResource Remove="MyListTest\**" />
+    <EmbeddedResource Remove="QueueTest\**" />
+    <EmbeddedResource Remove="TStackTest\**" />
+    <None Remove="dotCover.Output\**" />
+    <None Remove="ListProj\**" />
+    <None Remove="MyListTest\**" />
+    <None Remove="QueueTest\**" />
+    <None Remove="TStackTest\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove=".gitignore" />
+    <None Remove="dotCover.Output.html" />
+  </ItemGroup>
 
 </Project>
