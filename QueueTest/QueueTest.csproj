@@ -9,6 +9,10 @@
     <IsPackable>false</IsPackable>
 
     <BaseOutputPath>W:\Training\QueueTest\bin</BaseOutputPath>
+
+    <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
+
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

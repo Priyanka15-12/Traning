@@ -20,52 +20,67 @@ namespace Training {
    /// <typeparam name="T"></typeparam>
    public class TQueue<T> {
       #region Properties --------------------------------------------
-      /// <summary>Shows count of the Queue</summary>
+      /// <summary>Count of the elements in TQueue</summary>
       public int Count => mCount;
 
-      /// <summary>shows capacity of the Queue</summary>
-      public int Capacity => mElements.Length;
+      /// <summary>Capacity of the TQueue</summary>
+      public int Capacity { get; set; } = 4;
 
-      /// <summary>Shows whether the queue is empty or not </summary>
+      /// <summary>Tells if the queue is empty or not </summary>
       public bool IsEmpty => mCount == 0;
       #endregion
 
-      #region Methods -----------------------------------------------
-      /// <summary>Add elements in queue</summary>
+      #region Method ------------------------------------------------
+      /// <summary>Add element to end of Queue</summary>
       /// <param name="a">Elements of queue</param>
       public void Enqueue (T a) {
-         if (Count == Capacity) Array.Resize (ref mElements, Capacity * 2);
-         mElements[mCount++] = a;
+         if (mCount == mElements.Length) Resize ();
+         mElements[mRear] = a;
+         mRear = (mRear + 1) % mElements.Length;
+         mCount++;
       }
 
-      /// <summary>Remove elements in the order of FIFO</summary>
+      /// <summary>Remove the element in order of FIFO</summary>
       /// <returns>Shows the removed element</returns>
       public T Dequeue () {
-         InvalidOperationException ();
-         T a = mElements[mDCount];
-         mElements[mDCount++] = default;
+         CheckEmpty ();
+         T a = mElements[mFront];
+         mElements[mFront] = default;
+         mFront = (mFront + 1) % mElements.Length;
          mCount--;
          return a;
       }
 
-      /// <summary>Shows the first element of queue</summary>
+      /// <summary>Show first element of queue without removing it</summary>
       /// <returns>Returns the element which added at first</returns>
       public T Peek () {
-         InvalidOperationException ();
-         return mElements[mDCount];
+         CheckEmpty ();
+         return mElements[mFront];
       }
 
-      /// <summary>Throws
-      /// . the Exception</summary>
-      /// <exception cref="InvalidOperationException"></exception>
-      void InvalidOperationException () {
+      /// <summary>Throws Exception when queue is empty</summary>
+      /// <exception cref="CheckEmpty"></exception>
+      void CheckEmpty () {
          if (IsEmpty) throw new InvalidOperationException ("Empty Queue");
+      }
+
+      /// <summary>Resize capacity of Queue</summary>
+      void Resize () {
+         var temp = new T[Capacity * 2];
+         for (int i = 0; i < Capacity; i++) {
+            temp[i] = mElements[mRear];
+            mRear = (mRear + 1) % Capacity;
+         }
+         mElements = temp;
+         Capacity *= 2;
+         mRear = mCount;
+         mFront = 0;
       }
       #endregion
 
       #region Private data ------------------------------------------
       T[] mElements = new T[4];
-      int mCount = 0, mDCount = 0;
+      int mFront = 0, mRear = 0, mCount = 0;
       #endregion
    }
    #endregion

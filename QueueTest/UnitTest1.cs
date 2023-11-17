@@ -2,50 +2,60 @@ using Training;
 namespace QueueTest {
    [TestClass]
    public class UnitTest1 {
-      TQueue<int> mNumbers = new ();
-      Queue<int> mQueueNum = new ();
+      TQueue<int> mTQueue = new ();
+      Queue<int> mQueue = new ();
 
       [TestMethod]
       public void EnqueueTest () {
-         mNumbers.Enqueue (1);
-         mNumbers.Enqueue (2);
-         mNumbers.Enqueue (3);
-         mQueueNum.Enqueue (1);
-         mQueueNum.Enqueue (2);
-         mQueueNum.Enqueue (3);
-         Assert.AreEqual (mNumbers.Count, mQueueNum.Count);
-         mNumbers.Enqueue (4);
-         mNumbers.Enqueue (5);
-         Assert.AreEqual (8, mNumbers.Capacity);
+         for (int i = 1; i <= 5; i++)
+            mTQueue.Enqueue (i);
+         for (int i = 1; i <= 4; i++)
+            mQueue.Enqueue (i);
+         Assert.AreEqual (5, mTQueue.Count);
+         Assert.AreEqual (4, mQueue.Count);
+         for (int i = 1; i <= 2; i++)
+            mTQueue.Enqueue (i);
+         Assert.AreEqual (7, mTQueue.Count);
+         Assert.AreEqual (8, mTQueue.Capacity);
       }
 
       [TestMethod]
       public void DequeueTest () {
-         mNumbers.Enqueue (1);
-         mNumbers.Enqueue (2);
-         mNumbers.Enqueue (3);
-         mQueueNum.Enqueue (1);
-         mQueueNum.Enqueue (2);
-         mQueueNum.Enqueue (3);
-         Assert.AreEqual (mNumbers.Dequeue (), mQueueNum.Dequeue ());
-         Assert.IsFalse (mNumbers.IsEmpty);
-         Assert.AreEqual (mNumbers.Dequeue (), mQueueNum.Dequeue ());
-         Assert.AreEqual (mNumbers.Dequeue (), mQueueNum.Dequeue ());
-         Assert.IsTrue (mNumbers.IsEmpty);
-         Assert.ThrowsException<InvalidOperationException> (() => mNumbers.Dequeue (), "Dequeue can't do in empty queue");
+         for (int i = 1; i <= 5; i++)
+            mTQueue.Enqueue (i);
+         for (int i = 1; i <= 5; i++)
+            mQueue.Enqueue (i);
+         Assert.AreEqual (mTQueue.Dequeue (), mQueue.Dequeue ());
+         Assert.IsFalse (mTQueue.IsEmpty);
+         Assert.AreEqual (mTQueue.Dequeue (), mQueue.Dequeue ());
+         mTQueue.Enqueue (6);
+         mTQueue.Enqueue (7);
+         mQueue.Enqueue (6);
+         mQueue.Enqueue (7);
+         Assert.AreEqual (5, mTQueue.Count);
+         Assert.AreEqual (5, mQueue.Count);
+         (var a, var b) = (mTQueue.Count, mQueue.Count);
+         for (int i = 0; i < a; i++) mTQueue.Dequeue ();
+         for (int i = 0; i < b; i++) mQueue.Dequeue ();
+         Assert.IsTrue (mTQueue.IsEmpty);
+         Assert.ThrowsException<InvalidOperationException> (() => mTQueue.Dequeue (), "Dequeue can't do in empty queue");
+         Assert.ThrowsException<InvalidOperationException> (() => mQueue.Dequeue (), "Dequeue can't do in empty queue");
       }
 
       [TestMethod]
       public void PeekTest () {
-         mNumbers.Enqueue (1);
-         mNumbers.Enqueue (2);
-         mNumbers.Enqueue (3);
-         mQueueNum.Enqueue (1);
-         mQueueNum.Enqueue (2);
-         mQueueNum.Enqueue (3);
-         Assert.AreEqual (mNumbers.Peek (), mQueueNum.Peek ());
-         mNumbers.Dequeue ();
-         Assert.AreEqual (2, mNumbers.Peek ());
+         for (int i = 1; i <= 3; i++)
+            mTQueue.Enqueue (i);
+         for (int i = 1; i <= 5; i += 2)
+            mQueue.Enqueue (i);
+         Assert.AreEqual (mTQueue.Peek (), mQueue.Peek ());
+         mTQueue.Dequeue ();
+         mQueue.Dequeue ();
+         Assert.AreEqual (2, mTQueue.Peek ());
+         Assert.AreEqual (3, mQueue.Peek ());
+         mTQueue.Dequeue ();
+         mTQueue.Dequeue ();
+         Assert.ThrowsException<InvalidOperationException> (() => mTQueue.Peek (), "Peek can't do in Empty Queue");
       }
    }
 }
