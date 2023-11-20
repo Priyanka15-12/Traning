@@ -7,10 +7,10 @@ namespace QueueTest {
 
       [TestMethod]
       public void EnqueueTest () {
-         for (int i = 1; i <= 5; i++)
+         for (int i = 1; i <= 5; i++) {
             mTQueue.Enqueue (i);
-         for (int i = 1; i <= 4; i++)
             mQueue.Enqueue (i);
+         }
          Assert.AreEqual (5, mTQueue.Count);
          Assert.AreEqual (4, mQueue.Count);
          for (int i = 1; i <= 2; i++)
@@ -38,8 +38,8 @@ namespace QueueTest {
          for (int i = 0; i < a; i++) mTQueue.Dequeue ();
          for (int i = 0; i < b; i++) mQueue.Dequeue ();
          Assert.IsTrue (mTQueue.IsEmpty);
-         Assert.ThrowsException<InvalidOperationException> (() => mTQueue.Dequeue (), "Dequeue can't do in empty queue");
-         Assert.ThrowsException<InvalidOperationException> (() => mQueue.Dequeue (), "Dequeue can't do in empty queue");
+         Assert.ThrowsException<InvalidOperationException> (() => mTQueue.Dequeue (), "Dequeue cannot be done in an empty queue");
+         Assert.ThrowsException<InvalidOperationException> (() => mQueue.Dequeue (), "Dequeue cannot be done in an empty queue");
       }
 
       [TestMethod]
@@ -55,7 +55,7 @@ namespace QueueTest {
          Assert.AreEqual (3, mQueue.Peek ());
          mTQueue.Dequeue ();
          mTQueue.Dequeue ();
-         Assert.ThrowsException<InvalidOperationException> (() => mTQueue.Peek (), "Peek can't do in Empty Queue");
+         Assert.ThrowsException<InvalidOperationException> (() => mTQueue.Peek (), "Peek cannot be done in an empty queue");
       }
    }
 }
