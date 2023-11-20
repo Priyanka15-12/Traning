@@ -20,28 +20,25 @@ namespace Training {
    /// <typeparam name="T"></typeparam>
    public class TQueue<T> {
       #region Properties --------------------------------------------
+      /// <summary>Capacity of the TQueue</summary>
+      public int Capacity => mElements.Length;
+
       /// <summary>Count of the elements in TQueue</summary>
       public int Count => mCount;
-
-      /// <summary>Capacity of the TQueue</summary>
-      public int Capacity { get; set; } = 4;
 
       /// <summary>Tells if the queue is empty or not </summary>
       public bool IsEmpty => mCount == 0;
       #endregion
 
       #region Method ------------------------------------------------
-      /// <summary>Add element to end of Queue</summary>
-      /// <param name="a">Elements of queue</param>
-      public void Enqueue (T a) {
-         if (mCount == mElements.Length) Resize ();
-         mElements[mRear] = a;
-         mRear = (mRear + 1) % mElements.Length;
-         mCount++;
+      /// <summary>Throws Exception when queue is empty</summary>
+      /// <exception cref="CheckEmpty"></exception>
+      void CheckEmpty () {
+         if (IsEmpty) throw new InvalidOperationException ("Empty Queue");
       }
 
-      /// <summary>Remove the element in order of FIFO</summary>
-      /// <returns>Shows the removed element</returns>
+      /// <summary>Removes the element in order of FIFO</summary>
+      /// <returns>Returns the removed element</returns>
       public T Dequeue () {
          CheckEmpty ();
          T a = mElements[mFront];
@@ -51,36 +48,32 @@ namespace Training {
          return a;
       }
 
-      /// <summary>Show first element of queue without removing it</summary>
-      /// <returns>Returns the element which added at first</returns>
+      /// <summary>Adds element to end of Queue</summary>
+      /// <param name="a">Elements of queue</param>
+      public void Enqueue (T a) {
+         if (mCount == mElements.Length) {
+            var temp = new T[Capacity * 2];
+            for (int i = 0; i < Capacity; i++) {
+               temp[i] = mElements[mRear];
+               mRear = (mRear + 1) % Capacity;
+            }
+            (mElements, mRear, mFront) = (temp, mCount, 0);
+         }
+         mElements[mRear] = a;
+         mRear = (mRear + 1) % mElements.Length;
+         mCount++;
+      }
+
+      /// <summary>Returns the first element in queue without removing it</summary>
       public T Peek () {
          CheckEmpty ();
          return mElements[mFront];
       }
-
-      /// <summary>Throws Exception when queue is empty</summary>
-      /// <exception cref="CheckEmpty"></exception>
-      void CheckEmpty () {
-         if (IsEmpty) throw new InvalidOperationException ("Empty Queue");
-      }
-
-      /// <summary>Resize capacity of Queue</summary>
-      void Resize () {
-         var temp = new T[Capacity * 2];
-         for (int i = 0; i < Capacity; i++) {
-            temp[i] = mElements[mRear];
-            mRear = (mRear + 1) % Capacity;
-         }
-         mElements = temp;
-         Capacity *= 2;
-         mRear = mCount;
-         mFront = 0;
-      }
       #endregion
 
       #region Private data ------------------------------------------
+      int mCount = 0, mFront = 0, mRear = 0;
       T[] mElements = new T[4];
-      int mFront = 0, mRear = 0, mCount = 0;
       #endregion
    }
    #endregion

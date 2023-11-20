@@ -21,10 +21,10 @@ namespace QueueTest {
 
       [TestMethod]
       public void DequeueTest () {
-         for (int i = 1; i <= 5; i++)
+         for (int i = 1; i <= 5; i++) {
             mTQueue.Enqueue (i);
-         for (int i = 1; i <= 5; i++)
             mQueue.Enqueue (i);
+         }
          Assert.AreEqual (mTQueue.Dequeue (), mQueue.Dequeue ());
          Assert.IsFalse (mTQueue.IsEmpty);
          Assert.AreEqual (mTQueue.Dequeue (), mQueue.Dequeue ());
