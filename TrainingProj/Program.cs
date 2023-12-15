@@ -15,7 +15,7 @@ namespace Training {
       /// <summary>Checks if input string is in correct format or not, to implement Double.Parse</summary>
       /// <param name="input">Input string</param>
       /// <returns>True if it is a valid string, else false</returns>
-      public static bool IsValid (string input) {
+      static bool IsValid (string input) {
          int eIndex = input.IndexOf ('e'), dotIndex = input.IndexOf ('.');
          if (!input.All (a => a is '.' or 'e' or '+' or '-' || char.IsDigit (a))) return false;
          if (input.StartsWith ('e') || input.EndsWith ('e')) return false;
@@ -45,7 +45,7 @@ namespace Training {
       /// <summary>Parse the given string with decimal point into double</summary>
       /// <param name="input">Input string</param>
       /// <returns>Returns parsed double</returns>
-      static double GetParseDecimal (string input) {
+      static double GetParsedDecimal (string input) {
          string[] inputParts = input.Split ('.');
          double integralPart = inputParts[0].Length == 0
                                ? 0 : inputParts[0] is "-" or "+"
@@ -60,23 +60,23 @@ namespace Training {
       /// <summary>Parse the given string with exponent into double</summary>
       /// <param name="input">Input string</param>
       /// <returns>Returns parsed double</returns>
-      static double GetParseExponent (string input) {
+      static double GetParsedExponent (string input) {
          string[] parts = input.Split ('e');
-         double beforeE = parts[0].Contains ('.')
-                          ? GetParseDecimal (parts[0]) : int.Parse (parts[0]);
-         return beforeE * Math.Pow (10, int.Parse (parts[1]));
+         double beforeExpo = parts[0].Contains ('.')
+                          ? GetParsedDecimal (parts[0]) : int.Parse (parts[0]);
+         return beforeExpo * Math.Pow (10, int.Parse (parts[1]));
       }
 
       /// <summary>Parses the string into double, if valid</summary>
       /// <param name="str">Input string</param>
       /// <returns>Returns parsed double</returns>
       /// <exception cref="FormatException">Throws exception, when input string is invalid</exception>
-      public static double Parse (string str) {
+      public double Parse (string str) {
          string input = str.ToLower ();
          if (!IsValid (input))
             throw new FormatException ($"The input string '{input}' was not in a correct format.'");
-         return input.Contains ('e') ? GetParseExponent (input) : (input.Contains ('.')
-                                     ? GetParseDecimal (input) : int.Parse (input));
+         return input.Contains ('e') ? GetParsedExponent (input) : (input.Contains ('.')
+                                     ? GetParsedDecimal (input) : int.Parse (input));
       }
       #endregion
    }
