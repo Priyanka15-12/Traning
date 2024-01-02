@@ -1,5 +1,5 @@
 using Eval;
-namespace Eval_Test {
+namespace EvalTest {
    [TestClass]
    public class UnitTest1 {
       Evaluator eval = new ();
