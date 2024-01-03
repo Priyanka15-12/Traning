@@ -1,11 +1,18 @@
 ﻿namespace Eval {
-   #region classes --------------------------------------------------------------------------------
+   #region EvalException --------------------------------------------------------------------------
    /// <summary>Class EvalException</summary>
    public class EvalException : Exception {
       public EvalException (string message) : base (message) { }
    }
+   #endregion
+
+   #region Evaluator ------------------------------------------------------------------------------
    /// <summary>Class Evaluator</summary>
    public class Evaluator {
+      #region Property-----------------------------------------------
+      public int BasePriority { get; private set; }
+      #endregion
+
       #region Method ------------------------------------------------
       /// <summary>Evaluate the expressions</summary>
       /// <param name="input">Expression input</param>
@@ -16,12 +23,13 @@
          for (; ; ) {
             var token = tokenizer.Next (); // Gets each token
             if (token is TEnd) break;
-            if (token is TError err) throw new EvalException (err.Message);
+            if (token is TError err) ThrowException (err.Message);
             mTokens.Add (token);
          }
          // Check if this is a variable assignment
          TVariable? tVariable = null;
-         if (mTokens.Count > 2 && mTokens[0] is TVariable tVar && mTokens[1] is TOpArithmetic bin && bin.Operator == '=') {
+         if (mTokens.Count > 2 && mTokens[0] is TVariable tVar && mTokens[1] is TOpArithmetic bin
+                               && bin.Operator == '=') {
             tVariable = tVar;
             mTokens.RemoveRange (0, 2);
          }
@@ -31,16 +39,16 @@
          if (mOperators.Count > 0) ThrowException ("Too many operators");
          if (BasePriority != 0) ThrowException ("Mismatched parentheses");
          double f = mOperands.Pop ();
-         if (tVariable != null) mVariables[tVariable.Name] = f; // For assignment expression
+         if (tVariable != null) mVariables[tVariable.Name] = f; //For assignment expression
          return f;
       }
 
-      /// <summary>Gets the assinged variable</summary>
+      /// <summary>Gets the assigned variable</summary>
       /// <param name="name">Variable name</param>
       /// <returns>Returns the value of the variable</returns>
       /// <exception cref="EvalException">Throws exception if variable is unknown</exception>
       public double GetVariable (string name) {
-         if (mVariables.TryGetValue (name, out double f)) return f;
+         if (mVariables.TryGetValue (name, out double f)) return f; 
          throw new EvalException ($"Unknown variable: {name}");
       }
 
@@ -53,8 +61,10 @@
                break;
             case TOperator op:
                op.FinalPriority = BasePriority + op.Priority;
-               while (op is not TOpUnary // Pushes the operator if it is unary or has higher priority than the previous one
-                      && (mOperators.Count != 0 && op.FinalPriority < mOperators.Peek ().FinalPriority)) ApplyOperator ();
+               // Pushes the operator if it is unary or has higher priority than the previous one
+               while (op is not TOpUnary 
+                      && (mOperators.Count != 0 
+                      && op.FinalPriority < mOperators.Peek ().FinalPriority)) ApplyOperator ();
                mOperators.Push (op);
                break;
             case TPunctuation p:
@@ -68,11 +78,13 @@
       void ApplyOperator () {
          var op = mOperators.Pop ();
          var f1 = mOperands.Pop ();
-         if (op is TOpFunction func) mOperands.Push (func.Evaluate (f1));
-         if (op is TOpUnary un) mOperands.Push (un.Apply (f1));
-         else if (op is TOpArithmetic arith) {
-            var f2 = mOperands.Pop ();
-            mOperands.Push (arith.Evaluate (f2, f1));
+         switch (op) {
+            case TOpFunction func:
+               mOperands.Push (func.Evaluate (f1)); break;
+            case TOpUnary un: mOperands.Push (un.Apply (f1)); break;
+            case TOpArithmetic arith:
+               var f2 = mOperands.Pop ();
+               mOperands.Push (arith.Evaluate (f2, f1)); break;
          }
       }
 
@@ -92,7 +104,6 @@
       #endregion
 
       #region private data-------------------------------------------
-      public int BasePriority { get; private set; }
       Stack<double> mOperands = new ();
       Stack<TOperator> mOperators = new ();
       List<Token> mTokens = new ();

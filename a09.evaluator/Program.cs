@@ -18,7 +18,7 @@ namespace Eval {
          var eval = new Evaluator ();
          for (; ; ) {
             Write ("> ");
-            string input = ReadLine () ?? "".Trim ().ToLower ();
+            string input = (ReadLine () ?? "").Trim ().ToLower ();
             if (input == "exit") break; // Exits from the evaluator
             try {
                var result = eval.Evaluate (input);

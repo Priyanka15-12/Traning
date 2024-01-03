@@ -1,5 +1,5 @@
 ﻿namespace Eval {
-   #region Class --------------------------------------------------------------------------------
+   #region Tokenzier --------------------------------------------------------------------------------
    /// <summary>class Tokenizer</summary>
    class Tokenizer {
       #region Constructor -------------------------------------------
@@ -40,7 +40,7 @@
          }
          string sub = mText[start..mN];
          if (mFuncs.Contains (sub)) return new TOpFunction (mEval, sub);
-         else return new TVariable (mEval, sub);
+         return new TVariable (mEval, sub);
       }
 
       /// <summary>Gets the literal</summary>
