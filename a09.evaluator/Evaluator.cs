@@ -39,7 +39,7 @@
          if (mOperators.Count > 0) ThrowException ("Too many operators");
          if (BasePriority != 0) ThrowException ("Mismatched parentheses");
          double f = mOperands.Pop ();
-         if (tVariable != null) mVariables[tVariable.Name] = f; //For assignment expression
+         if (tVariable != null) mVariables[tVariable.Name] = f; // For assignment expression
          return f;
       }
 
@@ -48,7 +48,7 @@
       /// <returns>Returns the value of the variable</returns>
       /// <exception cref="EvalException">Throws exception if variable is unknown</exception>
       public double GetVariable (string name) {
-         if (mVariables.TryGetValue (name, out double f)) return f; 
+         if (mVariables.TryGetValue (name, out double f)) return f;
          throw new EvalException ($"Unknown variable: {name}");
       }
 
