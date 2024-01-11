@@ -71,3 +71,6 @@ public class InValidPathException : Exception {
 
 /// <summary>States of file path</summary>
 public enum EState { A, B, C, D, E, F, G, H, I, J, Z };
+
+///<summary>Have a look at the State Transition diagram</summary>
+///See file://W://Traning//FileParser.jpg
