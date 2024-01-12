@@ -62,9 +62,9 @@
             case TOperator op:
                op.FinalPriority = BasePriority + op.Priority;
                // Pushes the operator if it is unary or has higher priority than the previous one
-               while (op is not TOpUnary 
-                      && (mOperators.Count != 0 
-                      && op.FinalPriority < mOperators.Peek ().FinalPriority)) ApplyOperator ();
+               while (op is not TOpUnary
+                      && mOperators.Count != 0
+                      && op.FinalPriority <= mOperators.Peek ().FinalPriority) ApplyOperator ();
                mOperators.Push (op);
                break;
             case TPunctuation p:
