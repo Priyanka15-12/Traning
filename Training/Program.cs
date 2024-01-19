@@ -27,8 +27,7 @@ namespace Training {
       #endregion
 
       #region Method ------------------------------------------------
-      /// <summary>Throws exception when queue is empty</summary>
-      /// <exception cref="InvalidOperationException"></exception>
+      // Throws exception when queue is empty
       void CheckEmpty () {
          if (IsEmpty) throw new InvalidOperationException ("Empty Queue");
       }
@@ -37,7 +36,7 @@ namespace Training {
       /// <param name="a">Elements of queue</param>
       public void EnqueueFront (T a) {
          if (mCount == mElements.Length) Resize ();
-         //Move the pointer to front position
+         // Move the pointer to front position
          mFront = (mFront - 1 + mElements.Length) % mElements.Length;
          mElements[mFront] = a;
          mCount++;
@@ -56,21 +55,17 @@ namespace Training {
       /// <returns>Returns removed element</returns>
       public T DequeueRear () {
          CheckEmpty ();
-         //Move the pointer to rear position
+         // Move the pointer to rear position
          mRear = (mRear - 1 + mElements.Length) % mElements.Length;
-         T a = mElements[mRear];
-         mElements[mRear] = default;
          mCount--;
-         return a;
+         return mElements[mRear];
       }
 
       /// <summary>Removes an element at front of the queue</summary>
       /// <returns>Returns removed element</returns>
       public T DequeueFront () {
          CheckEmpty ();
-         T a = mElements[mFront];
-         mElements[mFront] = default;
-         mFront = (mFront + 1) % mElements.Length;
+         (T a, mFront) = (mElements[mFront], (mFront + 1) % mElements.Length);
          mCount--;
          return a;
       }
@@ -87,7 +82,7 @@ namespace Training {
          return mElements[(mRear - 1 + mElements.Length) % mElements.Length];
       }
 
-      /// <summary>Double the capacity of queue when needed</summary>
+      // Double the capacity of queue when needed
       void Resize () {
          var temp = new T[Capacity * 2];
          for (int i = 0; i < Capacity; i++) {
