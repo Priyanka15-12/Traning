@@ -85,10 +85,8 @@ namespace Training {
       // Double the capacity of queue when needed
       void Resize () {
          var temp = new T[Capacity * 2];
-         for (int i = 0; i < Capacity; i++) {
-            temp[i] = mElements[mRear];
-            mRear = (mRear + 1) % Capacity;
-         }
+         for (int i = 0; i < Capacity; i++)
+            temp[i] = mElements[(mRear + i) % Capacity];
          (mElements, mRear, mFront) = (temp, mCount, 0);
       }
       #endregion
