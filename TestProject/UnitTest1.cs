@@ -16,6 +16,7 @@ public class UnitTest1 {
       Assert.AreEqual ((true, "C", "USERS\\DOWNLOADS", "ASSIGNMENT", "DOCX"),
          Program.GetParsedFilePath ("C:\\USERS\\DOWNLOADS\\ASSIGNMENT.DOCX"));
       Assert.AreEqual ((true, "C", "PROGRAM", "DATA", "EXT"), Program.GetParsedFilePath ("C:/PROGRAM/DATA.EXT"));
+      Assert.AreEqual ((true, "C", "PROGRAM", "DATA", "EXT"), Program.GetParsedFilePath ("C:/Program/Data.ext"));
    }
 
    [TestMethod]

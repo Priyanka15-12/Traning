@@ -20,15 +20,13 @@ namespace Training {
             Console.Write ("File Path: ");
             string fileName = Console.ReadLine ();
             if (fileName == "") break; // Exits when no input is provided.
-
             (bool isValid, string drive, string folder, string file, string ext) = GetParsedFilePath (fileName);
             if (isValid) {
                Console.Write ($"Drive     : {drive}\r\n" +
                               $"Folder    : {folder}\r\n" +
                               $"Filename  : {file}\r\n" +
                               $"Extension : {ext}\n\n");
-            }
-            Console.WriteLine ("Invalid File path");
+            } else Console.WriteLine ("Invalid File path");
          }
       }
 
@@ -37,7 +35,7 @@ namespace Training {
       /// <returns>Returns bool for path is valid or not, drive, folder, 
       /// filename and extension as tuple of four string</returns>
       public static (bool isValid, string drive, string folder, string file, string ext) GetParsedFilePath (string filePath) {
-         filePath = (filePath + '~').Replace ('/', '\\');
+         filePath = (filePath + '~').Replace ('/', '\\').ToUpper ();
          EState s = A;
          Action none = () => { }, todo;
          string drive = "", folder = "", file = "", ext = "";
